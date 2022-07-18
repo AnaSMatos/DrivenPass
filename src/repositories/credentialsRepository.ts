@@ -4,21 +4,21 @@ export interface Credential {
     id: number,
     userId: number,
     url: string,
-    name: string,
+    username: string,
     password: string,
     title: string
 }
 export type CredInfo = Omit<Credential, "id">
 
 export async function insertCredential(userData: CredInfo){
-    const {url, name, title, password, userId} = userData;
+    const {url, username, title, password, userId} = userData;
 
     await prisma.credentials.create({
         data: {
             userId,
-            url,
-            name,
             title,
+            url,
+            username,
             password
         }
     })
@@ -36,13 +36,14 @@ export async function getCredentialsByUserAndTitle(userId: number, title: string
     return credentials
 }
 
-export async function getCredentialById(id: number, userId: number){
-    const credential = await prisma.credentials.findUnique({where: {id, userId}})
+export async function getCredentialById(id: number){
+    const credential = await prisma.credentials.findUnique({where: {id}})
 
     return credential
 }
 
 export async function deleteCredendialById(id:number) {
+    console.log(id)
     await prisma.credentials.delete({
         where:{id}
     })

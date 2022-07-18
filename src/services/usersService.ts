@@ -1,4 +1,5 @@
 import { insertUser, getUserByEmail, UserInfo } from "../repositories/usersRepository.js";
+import { generateToken } from "../utils/token.js";
 import bcrypt from "bcrypt"
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
@@ -41,8 +42,8 @@ async function logUser(data: UserInfo){
         }
     }
 
-    const token = {id: user[0].id, email: user[0].email};
-    return jwt.sign(token, process.env.JWT_TOKEN);
+    const token = generateToken(user[0].id)
+    return token;
 }
 
 const userServices = {

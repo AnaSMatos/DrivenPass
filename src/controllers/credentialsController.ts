@@ -1,10 +1,14 @@
 import {Request, Response} from "express"
 import { CredInfo } from "../repositories/credentialsRepository.js"
 import credentialServices from "../services/credentialsService.js"
+import { decodeToken, getUserIdbyToken } from "../utils/token.js";
 
 export async function createCredential(req: Request, res: Response){
+    // const {authorization} = req.headers;
+    // const userId = getUserIdbyToken(authorization).userId
+
+    const userId = 1
     const data: CredInfo = req.body
-    const userId = res.locals.userDataFromToken;
 
     await credentialServices.createCredential(data, userId)
 
@@ -12,7 +16,11 @@ export async function createCredential(req: Request, res: Response){
 }
 
 export async function findCredentials(req: Request, res: Response){
-    const userId = res.locals.userDataFromToken;
+    // const {authorization} = req.headers;
+    // const userId = getUserIdbyToken(authorization).userId
+
+
+    const userId = 1
 
     const credentials = await credentialServices.getAllCredentials(userId)
 
@@ -21,7 +29,10 @@ export async function findCredentials(req: Request, res: Response){
 
 export async function findCredential(req: Request, res: Response){
     const {id} = req.params
-    const userId = res.locals.userDataFromToken;
+    // const {authorization} = req.headers;
+    // const userId = getUserIdbyToken(authorization)
+
+    const userId = 1
 
     const credential = await credentialServices.getCredential(Number(id), userId)
 
@@ -30,7 +41,12 @@ export async function findCredential(req: Request, res: Response){
 
 export async function deleteCredential(req: Request, res: Response){
     const {id} = req.params
-    const userId = res.locals.userDataFromToken;
+    // const {authorization} = req.headers;
+    // const userId = getUserIdbyToken(authorization)
+
+    const userId = 1
 
     await credentialServices.deleteCredential(Number(id), userId)
+
+    res.sendStatus(200)
 }

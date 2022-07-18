@@ -9,6 +9,6 @@ const credentialsRouter = Router()
 credentialsRouter.post("/credentials", validateSchema(credentialSchema), createCredential)
 credentialsRouter.get("/credentials", findCredentials)
 credentialsRouter.get("/credentials/:id", findCredential)
-credentialsRouter.delete("/credencials/:id", deleteCredential)
+credentialsRouter.delete("/credentials/:id", deleteCredential)
 
 export default credentialsRouter;

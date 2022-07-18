@@ -35,7 +35,7 @@ model credentials {
 model notes {
   id        Int    @id(map: "notes_pk") @default(autoincrement())
   userId    Int
-  title     String @unique
+  title     String
   note      String
   createdAt String @default(dbgenerated("now()"))
   users     users  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "notes_fk0")
