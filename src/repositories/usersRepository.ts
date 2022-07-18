@@ -1,8 +1,5 @@
 import prisma from "../database.js";
-import users from "@prisma/client";
 
-//ex:
-//await prisma.meme.fundUnique({where:{title}}) -> dentro do quere a condição
 
 export interface User {
     id: number,

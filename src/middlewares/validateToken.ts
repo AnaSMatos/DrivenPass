@@ -14,17 +14,17 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
             message: "Invalid token"
         }
     }
-    // const userDataFromToken = jwt.verify(token, process.env.JWT_TOKEN, function (err, decoded) {
-    //     if (err){
-    //         throw{
-    //             type: "unauthorized",
-    //             message: "Invalid token"
-    //         }
-    //     } 
-    //     return decoded;
-    // });
+    const userDataFromToken = jwt.verify(token, 'secret', function (err, decoded) {
+        if (err){
+            throw{
+                type: "unauthorized",
+                message: "Invalid token"
+            }
+        } 
+        return decoded;
+    });
 
-    // res.locals.userDataFromToken = userDataFromToken;
+    res.locals.userDataFromToken = userDataFromToken;
 
     next();
 };
