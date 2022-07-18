@@ -1,6 +1,30 @@
 import prisma from "../database.js";
+import users from "@prisma/client";
 
-//ex query
-//await prisma.meme.fundMany() -> meme seria o nome da tabela
-
+//ex:
 //await prisma.meme.fundUnique({where:{title}}) -> dentro do quere a condição
+
+export interface User {
+    id: number,
+    email: string,
+    password: string
+}
+export type UserInfo = Omit<User, "id">
+
+export async function insertUser(userData: UserInfo){
+    const {email, password} = userData;
+
+    await prisma.users.create({
+        data: {
+            email,
+            password
+        }
+    })
+}
+
+export async function getUserByEmail(email: string){
+    const user = await prisma.users.findMany({where: {email}})
+
+    return user
+}
+

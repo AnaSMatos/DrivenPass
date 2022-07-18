@@ -1,10 +1,21 @@
+import {Request, Response} from "express"
+import { User } from "../repositories/usersRepository.js"
+import userServices from "../services/usersService.js"
+
+export type UserInfo = Omit<User, "id">
 //o token deve ser recebido em todas as requisições!!
-async function signUp(){
-    //validações: email válido, senha com no mínimo 10 caracteres
-    //rn: email não ser cadastrado
+export async function signUp(req: Request, res: Response){
+    const data: UserInfo = req.body
+
+    await userServices.createUser(data)
+
+    res.sendStatus(201)
 }
 
-async function signIn(){
-    //receber um token ao logar (jsonwebtoken)
-    
+export async function signIn(req: Request, res: Response){
+    const data: UserInfo = req.body
+
+    const token = await userServices.logUser(data)
+
+    res.send(token) 
 }
