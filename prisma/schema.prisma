@@ -10,13 +10,14 @@ datasource db {
 model cards {
   id             Int      @id(map: "cards_pk") @default(autoincrement())
   userId         Int
-  title          Int
+  title          String
   number         String
   name           String
   securityCode   String
   expirationDate String
   password       String
   isVirtual      Boolean
+  type           String
   createdAt      DateTime @default(now()) @db.Timestamp(6)
   users          users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cards_fk0")
 }

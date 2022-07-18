@@ -73,11 +73,11 @@ async function deleteNote(id: number, userId: number){
     await deleteNoteById(id)
 }
 
-const credentialServices = {
+const noteServices = {
     createNote,
     getAllNotes,
     getNote,
     deleteNote
 }
 
-export default credentialServices;
+export default noteServices;
