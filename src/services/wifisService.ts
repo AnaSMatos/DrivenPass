@@ -11,19 +11,18 @@ async function createWifi(data: WifiInfo, userId: number){
         }
     }
 
-    //falta encriptar os dados
+    const encryptedPassword = cryptr.encrypt(password)
 
-    const wifiInfo = {...data, userId}
+    const wifiInfo = {title, name, password:encryptedPassword, userId}
 
     await insertWifi(wifiInfo)
 }
 
 async function getAllWifis(userId: number){
     const wifis = await getWifis(userId)
-
-    //falta decriptar os dados
     
     wifis.forEach((element) => {
+        element.password = cryptr.decrypt(element.password)
         delete element.userId
         delete element.id
         delete element.createdAt
@@ -48,8 +47,7 @@ async function getWifi(id: number, userId: number){
         }
     }
 
-    //descriptar aqui também
-    
+    wifi.password = cryptr.decrypt(wifi.password)
     delete wifi.id
     delete wifi.userId
     delete wifi.createdAt

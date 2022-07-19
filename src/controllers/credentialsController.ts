@@ -4,10 +4,9 @@ import credentialServices from "../services/credentialsService.js"
 import { decodeToken, getUserIdbyToken } from "../utils/token.js";
 
 export async function createCredential(req: Request, res: Response){
-    // const {authorization} = req.headers;
-    // const userId = getUserIdbyToken(authorization).userId
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
-    const userId = 1
     const data: CredInfo = req.body
 
     await credentialServices.createCredential(data, userId)
@@ -16,11 +15,8 @@ export async function createCredential(req: Request, res: Response){
 }
 
 export async function findCredentials(req: Request, res: Response){
-    // const {authorization} = req.headers;
-    // const userId = getUserIdbyToken(authorization).userId
-
-
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     const credentials = await credentialServices.getAllCredentials(userId)
 
@@ -29,10 +25,8 @@ export async function findCredentials(req: Request, res: Response){
 
 export async function findCredential(req: Request, res: Response){
     const {id} = req.params
-    // const {authorization} = req.headers;
-    // const userId = getUserIdbyToken(authorization)
-
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     const credential = await credentialServices.getCredential(Number(id), userId)
 
@@ -41,10 +35,8 @@ export async function findCredential(req: Request, res: Response){
 
 export async function deleteCredential(req: Request, res: Response){
     const {id} = req.params
-    // const {authorization} = req.headers;
-    // const userId = getUserIdbyToken(authorization)
-
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     await credentialServices.deleteCredential(Number(id), userId)
 

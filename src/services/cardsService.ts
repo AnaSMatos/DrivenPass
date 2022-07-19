@@ -2,7 +2,7 @@ import cryptr from "../cryptrConfig.js"
 import { insertCard, getCards, getCardById, getCardsByUserAndTitle, deleteCardById, Card, CardInfo } from "../repositories/cardsRepository.js"
 
 async function createCard(data: CardInfo, userId: number){
-    const {title, securityCode, password} = data
+    const {number, title, name, securityCode, expirationDate, password, isVirtual, type} = data
     const titleExists = await getCardsByUserAndTitle(userId, data.title)
     if(titleExists.length > 0){
         throw{
@@ -11,19 +11,18 @@ async function createCard(data: CardInfo, userId: number){
         }
     }
 
-    //falta encriptar os dados
+    const encryptedPassword = cryptr.encrypt(password)
 
-    const cardInfo = {...data, userId}
+    const cardInfo = {number, title, name, securityCode, expirationDate, password: encryptedPassword, isVirtual, type, userId}
 
     await insertCard(cardInfo)
 }
 
 async function getAllCards(userId: number){
     const cards = await getCards(userId)
-
-    //falta decriptar os dados
     
     cards.forEach((element) => {
+        element.password = cryptr.decrypt(element.password)
         delete element.userId
         delete element.id
         delete element.createdAt
@@ -47,9 +46,8 @@ async function getCard(id: number, userId: number){
             message: "The credential you are looking for does not belong to you"
         }
     }
-
-    //descriptar aqui também
     
+    card.password = cryptr.decrypt(card.password)
     delete card.id
     delete card.userId
     delete card.createdAt
