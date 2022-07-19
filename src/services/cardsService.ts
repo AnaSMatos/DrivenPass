@@ -12,8 +12,9 @@ async function createCard(data: CardInfo, userId: number){
     }
 
     const encryptedPassword = cryptr.encrypt(password)
+    const encryptedSecurityCode = cryptr.encrypt(securityCode)
 
-    const cardInfo = {number, title, name, securityCode, expirationDate, password: encryptedPassword, isVirtual, type, userId}
+    const cardInfo = {number, title, name, securityCode: encryptedSecurityCode, expirationDate, password: encryptedPassword, isVirtual, type, userId}
 
     await insertCard(cardInfo)
 }

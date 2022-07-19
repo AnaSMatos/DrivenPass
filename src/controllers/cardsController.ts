@@ -4,11 +4,8 @@ import cardServices from "../services/cardsService.js"
 import { decodeToken, getUserIdbyToken } from "../utils/token.js";
 
 export async function createCard(req: Request, res: Response){
-    // const {authorization} = req.headers;
-    // const userId = getUserIDbyToken(authorization).userId
-    
-    const userId = 1
-
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
     const data: CardInfo = req.body
 
     await cardServices.createCard(data, userId)
@@ -18,9 +15,8 @@ export async function createCard(req: Request, res: Response){
 }
 
 export async function findCards(req: Request, res: Response){
-    // const {authorization} = req.headers;
-    // const userId = getUserIDbyToken(authorization)
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     const notes = await cardServices.getAllCards(userId)
 
@@ -30,9 +26,8 @@ export async function findCards(req: Request, res: Response){
 
 export async function findCard(req: Request, res: Response){
     const {id} = req.params
-    // const {authorization} = req.headers;
-    // const userId = getUserIDbyToken(authorization)
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     const note = await cardServices.getCard(Number(id), userId)
 
@@ -41,10 +36,8 @@ export async function findCard(req: Request, res: Response){
 
 export async function deleteCard(req: Request, res: Response){
     const {id} = req.params
-    // const {authorization} = req.headers;
-    // const userId = getUserIDbyToken(authorization)
-
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     await cardServices.deleteCard(Number(id), userId)
 

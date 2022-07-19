@@ -21,7 +21,7 @@ export function decodeToken (receivedToken){
 }
 
 export function generateToken(userId:number) {
-    return jwt.sign( { userId }, 'secret');
+    return jwt.sign( { userId }, process.env.JWT_TOKEN);
 }
 
 export function getUserIdbyToken(authorization) {

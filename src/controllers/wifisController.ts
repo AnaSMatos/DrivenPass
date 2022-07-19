@@ -1,13 +1,11 @@
 import {Request, Response} from "express"
 import { WifiInfo } from "../repositories/wifisRepository.js"
 import wifiServices from "../services/wifisService.js"
-import { decodeToken, getUserIdbyToken } from "../utils/token.js";
+import { getUserIdbyToken } from "../utils/token.js";
 
 export async function createWifi(req: Request, res: Response){
-    // const {authorization} = req.headers;
-    // const userId = getUserIDbyToken(authorization).userId
-    
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     const data: WifiInfo = req.body
 
@@ -18,9 +16,8 @@ export async function createWifi(req: Request, res: Response){
 }
 
 export async function findWifis(req: Request, res: Response){
-    // const {authorization} = req.headers;
-    // const userId = getUserIDbyToken(authorization)
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     const wifis = await wifiServices.getAllWifis(userId)
 
@@ -30,9 +27,8 @@ export async function findWifis(req: Request, res: Response){
 
 export async function findWifi(req: Request, res: Response){
     const {id} = req.params
-    // const {authorization} = req.headers;
-    // const userId = getUserIDbyToken(authorization)
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     const wifi = await wifiServices.getWifi(Number(id), userId)
 
@@ -41,10 +37,8 @@ export async function findWifi(req: Request, res: Response){
 
 export async function deleteWifi(req: Request, res: Response){
     const {id} = req.params
-    // const {authorization} = req.headers;
-    // const userId = getUserIDbyToken(authorization)
-
-    const userId = 1
+    const {authorization} = req.headers;
+    const userId = getUserIdbyToken(authorization).userId
 
     await wifiServices.deleteWifi(Number(id), userId)
 

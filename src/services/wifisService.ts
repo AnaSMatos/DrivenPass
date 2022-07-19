@@ -1,5 +1,5 @@
 import cryptr from "../cryptrConfig.js"
-import { insertWifi, getWifis, getWifiById, getWifiByUserAndTitle, deleteWifiById, Wifi, WifiInfo } from "../repositories/wifisRepository.js"
+import { insertWifi, getWifis, getWifiById, getWifiByUserAndTitle, deleteWifiById, WifiInfo } from "../repositories/wifisRepository.js"
 
 async function createWifi(data: WifiInfo, userId: number){
     const {title, name, password} = data
